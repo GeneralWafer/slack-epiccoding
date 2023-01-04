@@ -10,15 +10,36 @@ def sendPayload(url, signature):
 
     response = requests.request("POST", url, headers=headers, data=payload)
     print(response.text)
+    return response.text
 
 urlNoHashLamda = "https://9m4lww10jk.execute-api.ap-southeast-2.amazonaws.com/default/noHashLamda"
 urlNoRepeatCheck = "https://njyxhm3oz9.execute-api.ap-southeast-2.amazonaws.com/default/hashNoReplayCheck"
 urlHashLamda = "https://jxtuwzb397.execute-api.ap-southeast-2.amazonaws.com/default/hashLamda"
 
-validSignature = 'v0=8b71ad7a919dddb0887440bcf7a0e7fabc7624d56eb678c0ae88881866499a33'
+oldSignature = 'v0=8b71ad7a919dddb0887440bcf7a0e7fabc7624d56eb678c0ae88881866499a33'
 bogusSignature = 'v0=9b71ad7a919dddb0887430bcf7a0e7fabc7624d56eb678c0ae88881866499a34'
+noSignature = ''
 
-#testing with valid timestamps and signatures
-sendPayload(urlNoHashLamda, validSignature)
-sendPayload(urlNoRepeatCheck, validSignature)
-sendPayload(urlHashLamda, validSignature)
+accessGranted = 'open sesame'
+accessDenied = 'sesame closed'
+
+#testing with no hash checking
+print("testing noHashLamda...")
+assert sendPayload(urlNoHashLamda, noSignature) == accessGranted
+assert sendPayload(urlNoHashLamda, bogusSignature) == accessGranted
+assert sendPayload(urlNoHashLamda, oldSignature) == accessGranted
+print("\ntests passed!\n")
+
+#testing with hash checking, but no timestamp check
+print("testing noRepeatCheck...")
+assert sendPayload(urlNoRepeatCheck, noSignature) == accessDenied
+assert sendPayload(urlNoRepeatCheck, bogusSignature) == accessDenied
+assert sendPayload(urlNoRepeatCheck, oldSignature) == accessGranted
+print("\ntests passed!\n")
+
+#testing with hash and timestamp checking
+print("testing hashLamda...")
+assert sendPayload(urlHashLamda, noSignature) == accessDenied
+assert sendPayload(urlHashLamda, bogusSignature) == accessDenied
+assert sendPayload(urlHashLamda, oldSignature) == accessDenied
+print("\ntests passed!\n")
