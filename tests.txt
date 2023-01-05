@@ -1,0 +1,44 @@
+TEST: NO_HASH_LAMDA FUNCTION
+___________________________
+1. No Signature
+when noHashlamda called with valid body, without any slack signature
+then "open sesame"
+
+2. Bogus Signature
+when noHashLamda called with valid body, with a bogus slack signature
+then "open sesame"
+
+3. Old Signature
+when noHashLamda called with valid body, with an old slack signature
+then "open sesame"
+
+
+
+TEST: NO_REPEAT_CHECK FUNCTION
+_____________________________
+1. No Signature
+when noRepeatCheck called with valid body, without any slack signature
+then "sesame closed"
+
+2. Bogus Signature
+when noRepeatCheck called with valid body, with a bogus slack signature
+then "sesame closed"
+
+3. Old Signature
+when noRepeatCheck called with valid body, with an old slack signature
+then "open sesame"
+
+
+TEST: HASH_LAMDA FUNCTION
+_________________________
+1. No Signature
+when hashLamda called with valid body, without any slack signature
+then "sesame closed"
+
+2. Bogus Signature
+when hashLamda called with valid body, with a bogus slack signature
+then "sesame closed"
+
+3. Old Signature
+when hashLamda called with valid body, with an old slack signature
+then "sesame closed"
