@@ -22,3 +22,18 @@ The signature is only valid if it has a corresponding timestamp which matches th
 Cloudwatch logs can be used to debug lamda logs.
 
 POSTMAN is helpful to code the request code the request algorithm used in vulntesting.py.
+
+1. Open in VSCode in dev container
+2. Run ```pip install -r "requirements.txt"```
+3. Run ```pytest -v```
+
+This should output 4 tests failed and 5 tests passed.
+
+The tests are to check if the lamda functions are behaving as required
+given the test.txt scenarios.
+
+There are 3 tests per function. All tests must pass for the function to be
+considered "secure" in terms of signing key secrecy.
+
+references:
+https://api.slack.com/authentication/verifying-requests-from-slack
